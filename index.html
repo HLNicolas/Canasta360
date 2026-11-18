@@ -1,0 +1,551 @@
+<!doctype html>
+<html lang="es-PE">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Canasta 360° · Compara, ahorra, compra mejor</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
+<style>
+:root{--g:#10B981;--g2:#059669;--g3:#047857;--gb:#D1FAE5;--o:#F97316;--ob:#FFEDD5;--ink:#0F1F1A;--mut:#5B6B65;--bg:#F6F8F7;--card:#fff;--line:#E4EAE7;--r:20px;--sh:0 4px 18px rgba(16,40,30,.07)}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;background:var(--bg);color:var(--ink);line-height:1.45;-webkit-font-smoothing:antialiased}
+h1,h2,h3{margin:0;letter-spacing:-.02em}
+h1{font-size:30px;font-weight:800}h2{font-size:22px;font-weight:700}h3{font-size:17px;font-weight:700;margin-bottom:12px}
+button{font:inherit;cursor:pointer;color:inherit}
+svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.wrap{max-width:1160px;margin:0 auto;padding:0 24px}
+.muted{color:var(--mut);margin:4px 0 0}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.topbar{position:sticky;top:0;z-index:20;background:rgba(255,255,255,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.topbar-in{display:flex;align-items:center;gap:20px;height:66px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink);font-size:19px;white-space:nowrap}
+.logo{background:linear-gradient(135deg,var(--g),var(--g3));color:#fff;font-weight:800;font-size:13px;border-radius:12px;padding:8px 8px}
+.tabs{display:flex;gap:4px;flex:1;overflow-x:auto;scrollbar-width:none}
+.tabs button{border:0;background:none;padding:9px 14px;border-radius:999px;font-weight:600;color:var(--mut);white-space:nowrap}
+.tabs button:hover{background:var(--bg)}
+.tabs button.on{background:var(--gb);color:var(--g3)}
+.badge{background:var(--o);color:#fff;border-radius:999px;font-size:11px;padding:1px 7px;margin-left:4px}
+.top-actions{display:flex;align-items:center;gap:10px}
+.bell{position:relative;width:42px;height:42px;border-radius:50%;border:1px solid var(--line);background:#fff;display:grid;place-items:center}
+.bell i{position:absolute;top:9px;right:10px;width:9px;height:9px;border-radius:50%;background:var(--o)}
+.btn{border:0;border-radius:999px;padding:11px 20px;font-weight:700;transition:.15s}
+.btn.sm{padding:8px 14px;font-size:14px}
+.btn.primary{background:var(--g);color:#fff}.btn.primary:hover{background:var(--g2)}
+.btn.white{background:#fff;color:var(--g3)}
+.btn.ghost{background:#fff;border:1px solid var(--line)}.btn.ghost:hover{border-color:var(--g)}
+.btn.orange{background:var(--o);color:#fff}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.view{display:none;padding:28px 0 60px;animation:fade .25s}
+.view.on{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.hello span{color:var(--mut)}.hello h1{font-size:34px}
+.lema{color:var(--mut);margin:6px 0 20px}.lema em{color:var(--g3);font-style:normal;font-weight:600}
+.grid-hero{display:grid;grid-template-columns:1.5fr 1fr;gap:20px}
+.hero-card{position:relative;overflow:hidden;background:linear-gradient(135deg,#10B981,#047857);color:#fff;border-radius:28px;padding:30px 32px;box-shadow:var(--sh)}
+.hero-card:before,.hero-card:after{content:"";position:absolute;border-radius:50%;background:rgba(255,255,255,.12)}
+.hero-card:before{width:220px;height:220px;right:-60px;top:-70px}.hero-card:after{width:140px;height:140px;right:70px;bottom:-70px}
+.hero-k{font-weight:600}.hero-n{font-size:64px;font-weight:800;letter-spacing:-.03em;line-height:1.1;margin:6px 0}
+.hero-card p{max-width:420px;margin:0 0 18px;opacity:.95}
+.quick{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.tile{background:#fff;border:0;border-radius:var(--r);box-shadow:var(--sh);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;font-weight:700;padding:16px 8px;text-align:center;transition:.15s}
+.tile:hover{transform:translateY(-3px)}
+.ti{width:52px;height:52px;border-radius:16px;display:grid;place-items:center}.ti.g{background:var(--gb);color:var(--g3)}.ti.o{background:var(--ob);color:#C2410C}
+.sec-h{display:flex;justify-content:space-between;align-items:center;margin:34px 0 14px}
+.link{color:var(--g3);font-weight:700;text-decoration:none}
+.arrows{display:flex;gap:8px}.round{width:38px;height:38px;border-radius:50%;border:1px solid var(--line);background:#fff;font-size:20px}
+.carousel{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:8px;scrollbar-width:none}
+.promo{flex:0 0 320px;scroll-snap-align:start;border-radius:24px;padding:20px;min-height:170px;display:flex;flex-direction:column;justify-content:space-between;background:#fff;box-shadow:var(--sh)}
+.promo.hot{background:linear-gradient(135deg,#FB923C,#EA580C);color:#fff}
+.promo .who{display:flex;align-items:center;gap:10px;font-weight:700}
+.av{width:36px;height:36px;border-radius:50%;color:#fff;display:grid;place-items:center;font-size:12px;font-weight:800;flex:none}
+.promo h4{margin:14px 0 4px;font-size:21px;letter-spacing:-.02em}.promo small{opacity:.85}
+.cards4{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:16px}
+.pc{background:#fff;border-radius:var(--r);box-shadow:var(--sh);padding:18px;display:flex;gap:14px;align-items:center}
+.emo{width:52px;height:52px;border-radius:16px;background:var(--gb);display:grid;place-items:center;font-size:26px;flex:none}
+.pc b{display:block}.pc .min{color:var(--g3);font-weight:700;font-size:14px}
+.pc .grow{flex:1;min-width:0}
+.plus{width:38px;height:38px;border-radius:50%;border:0;background:var(--gb);color:var(--g3);font-size:22px;font-weight:700}
+.plus.done{background:var(--g);color:#fff}
+.page-h{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap;margin-bottom:22px}
+.cols{display:grid;grid-template-columns:1fr 360px;gap:20px;align-items:start}
+.card{background:#fff;border-radius:var(--r);box-shadow:var(--sh);padding:22px}
+.sticky{position:sticky;top:86px}
+.search{position:relative;display:flex;align-items:center;gap:10px;border:1.5px solid var(--line);border-radius:999px;padding:0 18px;background:var(--bg)}
+.search:focus-within{border-color:var(--g);background:#fff}
+.search input{flex:1;border:0;background:none;outline:0;padding:14px 0;font:inherit}
+.dd{position:absolute;left:0;right:0;top:calc(100% + 6px);background:#fff;border:1px solid var(--line);border-radius:16px;box-shadow:0 12px 30px rgba(0,0,0,.12);z-index:5;overflow:hidden}
+.dd button{display:flex;width:100%;gap:10px;align-items:center;border:0;background:none;padding:10px 16px;text-align:left}
+.dd button:hover{background:var(--gb)}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0}
+.chip{border:1px solid var(--line);background:#fff;border-radius:999px;padding:7px 16px;font-weight:600;font-size:14px}
+.chip.on{background:var(--g);border-color:var(--g);color:#fff}
+.catalog{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:10px}
+.cat-i{display:flex;align-items:center;gap:10px;border:1px solid var(--line);border-radius:14px;padding:10px 12px;background:#fff;text-align:left}
+.cat-i:hover{border-color:var(--g)}.cat-i.in{background:var(--gb);border-color:var(--g)}
+.cat-i small{display:block;color:var(--mut)}
+.item{display:flex;align-items:center;gap:14px;padding:14px 0;border-bottom:1px solid var(--line)}
+.item:last-child{border:0}
+.item .grow{flex:1;min-width:0}.item small{color:var(--mut)}
+.qty{display:flex;align-items:center;gap:6px;background:var(--bg);border-radius:999px;padding:3px}
+.qty button{width:30px;height:30px;border-radius:50%;border:0;background:#fff;font-weight:700;font-size:16px}
+.qty span{min-width:22px;text-align:center;font-weight:700}
+.x{border:0;background:none;color:#B91C1C;width:34px;height:34px;border-radius:50%}.x:hover{background:#FEE2E2}
+.price{font-weight:700;min-width:78px;text-align:right}
+.sum-r{display:flex;justify-content:space-between;padding:8px 0;color:var(--mut)}
+.sum-r b{color:var(--ink)}.sum-r.tot{border-top:1px solid var(--line);margin-top:6px;padding-top:14px;font-size:18px}
+.sum-r.tot b{font-size:26px;letter-spacing:-.02em}
+.stack{display:grid;gap:10px;margin-top:16px}.stack .btn{width:100%}
+.empty{text-align:center;color:var(--mut);padding:30px 10px}
+.switch{display:flex;align-items:center;gap:10px;font-weight:600;cursor:pointer}
+.switch input{display:none}.sl{width:46px;height:26px;border-radius:99px;background:#CBD5D1;position:relative;transition:.2s}
+.sl:after{content:"";position:absolute;left:3px;top:3px;width:20px;height:20px;border-radius:50%;background:#fff;transition:.2s}
+.switch input:checked+.sl{background:var(--g)}.switch input:checked+.sl:after{left:23px}
+.store{background:#fff;border-radius:var(--r);box-shadow:var(--sh);margin-bottom:14px;overflow:hidden;border:2px solid transparent}
+.store.best{border-color:var(--g)}
+.s-top{display:grid;grid-template-columns:auto 1fr auto;gap:16px;align-items:center;padding:18px 22px}
+.rank{width:30px;height:30px;border-radius:50%;background:var(--bg);display:grid;place-items:center;font-weight:800;color:var(--mut)}
+.store.best .rank{background:var(--g);color:#fff}
+.s-name{display:flex;align-items:center;gap:10px;font-weight:700;font-size:18px;flex-wrap:wrap}
+.s-meta{color:var(--mut);font-size:14px;margin-top:4px;display:flex;gap:14px;flex-wrap:wrap}
+.s-right{text-align:right}.s-total{font-size:26px;font-weight:800;letter-spacing:-.02em}
+.tag{display:inline-block;border-radius:999px;font-size:12px;font-weight:700;padding:3px 10px}
+.tag.g{background:var(--g);color:#fff}.tag.o{background:var(--ob);color:#C2410C}.tag.n{background:var(--bg);color:var(--mut)}.tag.r{background:#FEE2E2;color:#B91C1C}
+.s-act{display:flex;gap:10px;padding:0 22px 18px;flex-wrap:wrap}
+.detail{border-top:1px solid var(--line);padding:14px 22px 18px;background:#FBFCFB}
+.detail table{width:100%;border-collapse:collapse;font-size:14px}
+.detail td,.detail th{padding:8px 6px;text-align:left;border-bottom:1px solid var(--line)}
+.detail td:last-child,.detail th:last-child{text-align:right}
+.detail .off{opacity:.45;text-decoration:line-through}
+.sk{background:linear-gradient(90deg,#E8EEEB 25%,#F4F7F5 50%,#E8EEEB 75%);background-size:200% 100%;animation:sk 1s infinite;border-radius:var(--r);height:96px;margin-bottom:14px}
+@keyframes sk{to{background-position:-200% 0}}
+.sug{display:grid;grid-template-columns:1fr auto 1fr auto;gap:16px;align-items:center;background:#fff;border-radius:var(--r);box-shadow:var(--sh);padding:18px 22px;margin-bottom:14px}
+.sug .arrow{color:var(--g)}
+.sug .new{background:var(--gb);border-radius:14px;padding:12px 14px}
+.save{color:#C2410C;font-weight:800}
+.pill{background:var(--gb);color:var(--g3);font-weight:700;border-radius:999px;padding:5px 14px;font-size:14px}
+.dec{display:grid;grid-template-columns:1.2fr 1fr;gap:20px;align-items:start}
+.pills{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+.route{list-style:none;margin:0;padding:0 0 0 6px}
+.route li{position:relative;padding:0 0 18px 28px;border-left:2px dashed #B7C7C0;margin-left:8px}
+.route li:last-child{border-color:transparent;padding-bottom:0}
+.route li:before{content:"";position:absolute;left:-9px;top:0;width:16px;height:16px;border-radius:50%;background:var(--g);border:3px solid #fff;box-shadow:0 0 0 2px var(--g)}
+.route small{color:var(--mut);display:block}
+.split{background:var(--ob);border-radius:16px;padding:16px;margin-top:16px}
+.bars rect.b{fill:#A7E8CE;transition:.15s}.bars rect.b.last{fill:var(--g)}.bars g:hover rect.b{fill:var(--g2)}
+.bars text{font-family:inherit;fill:var(--mut);font-size:12px}.bars text.v{fill:var(--ink);font-weight:700}
+.al{display:flex;gap:12px;padding:12px 0;border-bottom:1px solid var(--line)}.al:last-child{border:0}
+.al .ti{width:38px;height:38px;border-radius:12px;font-size:18px}
+.saved{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:14px 0;border-bottom:1px solid var(--line)}
+.saved:last-child{border:0}.saved small{color:var(--mut);display:block}
+.modal-bg{position:fixed;inset:0;background:rgba(10,25,20,.55);display:grid;place-items:center;z-index:50;padding:16px}
+.modal-bg[hidden]{display:none}
+.modal{background:#fff;border-radius:24px;padding:28px;max-width:520px;width:100%;box-shadow:0 30px 80px rgba(0,0,0,.3);max-height:90vh;overflow:auto}
+.modal h3{font-size:22px}.scale{display:flex;gap:8px;margin:10px 0 20px}
+.scale button{flex:1;padding:12px 0;border-radius:14px;border:1.5px solid var(--line);background:#fff;font-weight:700;font-size:16px}
+.scale button.on{background:var(--g);border-color:var(--g);color:#fff}
+.q-l{font-weight:600}.ends{display:flex;justify-content:space-between;color:var(--mut);font-size:12px;margin-top:-14px;margin-bottom:18px}
+.toast{position:fixed;bottom:26px;left:50%;transform:translateX(-50%);background:var(--ink);color:#fff;padding:12px 22px;border-radius:999px;font-weight:600;z-index:60;box-shadow:0 10px 30px rgba(0,0,0,.3)}
+.toast[hidden]{display:none}
+.foot{border-top:1px solid var(--line);background:#fff;color:var(--mut);font-size:13px;text-align:center;padding:16px 0}
+@media(max-width:900px){.grid-hero,.cols,.dec{grid-template-columns:1fr}.sticky{position:static}.top-actions .btn{display:none}.hello h1{font-size:26px}.hero-n{font-size:48px}}
+@media(max-width:640px){.wrap{padding:0 16px}.topbar-in{gap:10px}.brand span:last-child{display:none}.s-top{grid-template-columns:auto 1fr}.s-right{grid-column:1/-1;text-align:left}.sug{grid-template-columns:1fr}.sug .arrow{display:none}.promo{flex-basis:260px}.quick{grid-template-columns:1fr 1fr 1fr;gap:8px}.tile{font-size:13px}}
+
+</style>
+</head>
+<body>
+<header class="topbar">
+  <div class="wrap topbar-in">
+    <a class="brand" href="#inicio" data-a="go" data-v="inicio"><span class="logo">360</span><span>Canasta <b>360°</b></span></a>
+    <nav class="tabs" id="tabs" aria-label="Secciones">
+      <button data-a="go" data-v="inicio">Inicio</button>
+      <button data-a="go" data-v="lista">Mi lista <span class="badge" id="listBadge">0</span></button>
+      <button data-a="go" data-v="comparar">Comparar</button>
+      <button data-a="go" data-v="sugerencias">Sugerencias</button>
+      <button data-a="go" data-v="decision">Decisión</button>
+      <button data-a="go" data-v="historial">Historial</button>
+    </nav>
+    <div class="top-actions">
+      <button class="btn ghost sm" data-a="survey">Evaluar</button>
+      <button class="bell" data-a="go" data-v="historial" aria-label="Alertas"><svg viewBox="0 0 24 24"><path d="M18 8a6 6 0 10-12 0c0 7-3 9-3 9h18s-3-2-3-9M13.7 21a2 2 0 01-3.4 0"/></svg><i></i></button>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+  <!-- INICIO -->
+  <section class="view" id="view-inicio">
+    <div class="hello"><span id="greet">Buenos días 👋</span><h1>Hola, vecino de La Molina</h1><p class="lema">Compara · Ahorra · Compra mejor — <em>Tu misma compra, menos gasto.</em></p></div>
+    <div class="grid-hero">
+      <div class="hero-card">
+        <div class="hero-k">↘ Esta semana podrías ahorrar</div>
+        <div class="hero-n" id="saveAmt">S/ 0.00</div>
+        <p id="saveTxt">Comparando tu lista entre 6 tiendas y usando equivalentes.</p>
+        <button class="btn white" data-a="go" data-v="comparar">Ver comparación →</button>
+      </div>
+      <div class="quick">
+        <button class="tile" data-a="newlist"><span class="ti g"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="4"/><path d="M12 8v8M8 12h8"/></svg></span>Nueva lista</button>
+        <button class="tile" data-a="go" data-v="historial"><span class="ti g"><svg viewBox="0 0 24 24"><path d="M3 12a9 9 0 103-6.7L3 8M3 3v5h5M12 7v5l3 2"/></svg></span>Listas guardadas</button>
+        <button class="tile" data-a="promos"><span class="ti o"><svg viewBox="0 0 24 24"><path d="M3 9a2 2 0 002-2h14a2 2 0 002 2v0a2 2 0 000 6v0a2 2 0 00-2 2H5a2 2 0 00-2-2v0a2 2 0 000-6zM9 9l6 6"/></svg></span>Promociones</button>
+      </div>
+    </div>
+    <div class="sec-h" id="promosAnchor"><h2>Promociones</h2><div class="arrows"><button class="round" data-a="scroll" data-dir="-1" aria-label="Anterior">‹</button><button class="round" data-a="scroll" data-dir="1" aria-label="Siguiente">›</button></div></div>
+    <div class="carousel" id="promoTrack"></div>
+    <div class="sec-h"><h2>Productos más comparados</h2><a class="link" href="#lista" data-a="go" data-v="lista">Ver catálogo</a></div>
+    <div class="cards4" id="topCompared"></div>
+  </section>
+
+  <!-- MI LISTA -->
+  <section class="view" id="view-lista">
+    <div class="page-h"><div><h1>Mi lista</h1><p class="muted">Arma tu canasta y compárala en todas las tiendas.</p></div>
+      <div class="row"><button class="btn ghost" data-a="loadweekly">Cargar “Compra semanal”</button><button class="btn ghost" data-a="clear">Vaciar</button></div></div>
+    <div class="cols">
+      <div>
+        <div class="card">
+          <div class="search"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg><input id="q" type="search" placeholder="Busca un producto (ej. arroz, leche, detergente)…" autocomplete="off"><div class="dd" id="dd" hidden></div></div>
+          <div class="chips" id="chips"></div>
+          <div id="catalog" class="catalog"></div>
+        </div>
+        <div class="card" style="margin-top:16px"><h3>Productos en tu lista</h3><div id="listItems"></div></div>
+      </div>
+      <aside class="side"><div class="card sticky" id="listSummary"></div></aside>
+    </div>
+  </section>
+
+  <!-- COMPARAR -->
+  <section class="view" id="view-comparar">
+    <div class="page-h"><div><h1>Comparar canasta</h1><p class="muted" id="cmpSub"></p></div>
+      <label class="switch"><input type="checkbox" id="transport"><span class="sl"></span><span>Incluir distancia / transporte</span></label></div>
+    <div id="cmpBody"></div>
+  </section>
+
+  <!-- SUGERENCIAS -->
+  <section class="view" id="view-sugerencias">
+    <div class="page-h"><div><h1>Sugerencias de ahorro</h1><p class="muted">Equivalentes más baratos para productos de tu lista. El total se recalcula en vivo.</p></div>
+      <div class="row"><button class="btn primary" data-a="swapall">Cambiar todos</button><button class="btn ghost" data-a="revertall">Revertir todos</button></div></div>
+    <div class="cols"><div id="sugList"></div><aside class="side"><div class="card sticky" id="sugSummary"></div></aside></div>
+  </section>
+
+  <!-- DECISION -->
+  <section class="view" id="view-decision">
+    <div class="page-h"><div><h1>Tu decisión</h1><p class="muted">Confirma dónde comprar y cómo llegar.</p></div></div>
+    <div id="decBody"></div>
+  </section>
+
+  <!-- HISTORIAL -->
+  <section class="view" id="view-historial">
+    <div class="page-h"><div><h1>Historial y ahorro</h1><p class="muted">Tu progreso de las últimas 8 semanas.</p></div><button class="btn ghost" data-a="survey">Dar mi opinión (2 preguntas)</button></div>
+    <div class="cols">
+      <div>
+        <div class="card"><div class="sec-h" style="margin-top:0"><h3>Ahorro semanal</h3><span class="pill" id="weekTotal"></span></div><div id="chart"></div></div>
+        <div class="card" style="margin-top:16px"><h3>Listas guardadas</h3><div id="saved"></div></div>
+      </div>
+      <aside class="side"><div class="card"><h3>Alertas de precio</h3><div id="alerts"></div></div></aside>
+    </div>
+  </section>
+</main>
+
+<footer class="foot"><div class="wrap">Prototipo con datos de ejemplo · Precios, tiendas y promociones simulados con fines académicos.</div></footer>
+
+<div class="modal-bg" id="modal" hidden><div class="modal" role="dialog" aria-modal="true" id="modalBox"></div></div>
+<div class="toast" id="toast" hidden></div>
+<script>
+/* Canasta 360° — prototipo estático. Datos de ejemplo, estado en localStorage. */
+(function(){
+'use strict';
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+const r2=n=>Math.round(n*100)/100, S=n=>'S/ '+r2(n).toFixed(2);
+const norm=s=>s.normalize('NFD').replace(/[̀-ͯ]/g,'').toLowerCase();
+
+const STORES=[
+ {id:'tottus',name:'Tottus',km:1.2,c:'#2E9E3F',ini:'To',h:2},
+ {id:'wong',name:'Wong',km:3.0,c:'#D32F2F',ini:'W',h:5},
+ {id:'metro',name:'Metro',km:2.0,c:'#E0A100',ini:'M',h:3},
+ {id:'supermax',name:'SuperMax',km:0.9,c:'#1565C0',ini:'SM',h:1,fake:1},
+ {id:'fresco',name:'Mercado Fresco',km:1.8,c:'#00897B',ini:'MF',h:4,fake:1},
+ {id:'esquina',name:'Minimarket La Esquina',km:0.3,c:'#8E24AA',ini:'LE',h:6,fake:1}
+];
+const transp=km=>km<=0.3?0:km<=1.5?2:km<=2.5?3.5:5;
+const FACT=[1,1.08,1.03,1.0,0.97,1.05]; // variación de equivalentes por tienda (-3% a +8%)
+const P=[
+ {id:'arroz',n:'Arroz Costeño extra 5 kg',cat:'Abarrotes',e:'🍚',p:[22.9,26.9,24.5,23.5,22.5,25.0],eq:{n:'Arroz Paisana 5 kg',b:19.9}},
+ {id:'aceite',n:'Aceite Primor 1 L',cat:'Abarrotes',e:'🫒',p:[11.5,13.9,12.5,11.9,11.8,13.0],eq:{n:'Aceite Cil 1 L',b:9.9}},
+ {id:'leche',n:'Leche Gloria evaporada pack 6',cat:'Lácteos',e:'🥛',p:[25.9,29.5,27.0,26.4,25.5,27.5],eq:{n:'Leche Laive pack 6',b:23.5}},
+ {id:'huevos',n:'Huevos pardos 1 kg',cat:'Carnes',e:'🥚',p:[10.5,12.5,11.0,10.2,9.9,11.5]},
+ {id:'pollo',n:'Pollo entero 1 kg',cat:'Carnes',e:'🍗',p:[12.5,15.5,13.5,12.9,12.2,14.0]},
+ {id:'pan',n:'Pan de molde Bimbo grande',cat:'Abarrotes',e:'🍞',p:[9.2,11.5,10.0,9.5,9.3,10.5]},
+ {id:'atun',n:'Atún Florida 170 g',cat:'Abarrotes',e:'🐟',p:[5.4,6.8,5.9,5.6,5.5,6.2],eq:{n:'Atún Campomar 170 g',b:4.6}},
+ {id:'deterg',n:'Detergente Ariel 2 kg',cat:'Limpieza',e:'🧴',p:[31.9,36.5,33.0,32.5,31.5,34.5],eq:{n:'Detergente Opal 2 kg',b:24.9}},
+ {id:'papel',n:'Papel higiénico Elite 12 rollos',cat:'Limpieza',e:'🧻',p:[24.5,28.9,25.9,24.9,23.9,27.0],eq:{n:'Papel Suave 12 rollos',b:19.9}},
+ {id:'azucar',n:'Azúcar Cartavio 1 kg',cat:'Abarrotes',e:'🍬',p:[4.3,5.2,4.5,4.4,4.2,4.8]},
+ {id:'fideos',n:'Fideos Don Vittorio 500 g',cat:'Abarrotes',e:'🍝',p:[3.5,4.5,3.8,3.6,3.4,4.0]},
+ {id:'yogurt',n:'Yogurt Gloria fresa 1 L',cat:'Lácteos',e:'🍓',p:[8.2,10.0,8.9,8.5,8.0,9.2]}
+];
+const PM=Object.fromEntries(P.map(p=>[p.id,p]));
+const CATS=['Todos','Abarrotes','Lácteos','Carnes','Limpieza'];
+const PROMOS=[
+ {s:0,t:'2×1 en pastas',d:'Llevas 2 paquetes de fideos y pagas 1.',hot:1},
+ {s:1,t:'S/ 10 de dscto. en compras sobre S/ 150',d:'Se aplica al total en caja.'},
+ {s:2,t:'−15% en lácteos los jueves',d:'Leche, yogurt y más.'},
+ {s:3,t:'Pan de molde a S/ 8.50',d:'Precio especial de la semana.'},
+ {s:4,t:'Huevos y pollo −10%',d:'Frescos del día.'}
+];
+const WEEKS=[12,18,9,25,31,22,40,47];
+const ALERTS=[
+ {i:'📉',t:'El arroz bajó S/ 2.00 en Tottus',d:'Arroz Costeño 5 kg ahora S/ 22.90.'},
+ {i:'🏷️',t:'Metro: −15% en lácteos este jueves',d:'Aplica a leche y yogurt de tu lista.'},
+ {i:'🥚',t:'Huevos −10% en Mercado Fresco',d:'Promoción válida hasta el domingo.'}
+];
+const WEEKLY=P.map(p=>p.id);
+const eqPrice=(p,si)=>r2(p.eq.b*FACT[si]);
+
+/* ---------- estado ---------- */
+const KEY='canasta360.v1';
+let st;
+function defaults(){return{list:Object.fromEntries(WEEKLY.map(i=>[i,1])),subs:{},na:{},transport:false,chosen:null,
+ saved:[{id:1,name:'Compra quincenal',date:'03/11/2026',store:'Tottus',total:164.8,n:10},{id:2,name:'Compra semanal',date:'27/10/2026',store:'SuperMax',total:171.9,n:12}],survey:null,nid:3}}
+function load(){try{st=Object.assign(defaults(),JSON.parse(localStorage.getItem(KEY)||'{}'))}catch(e){st=defaults()}}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(st))}catch(e){}}
+load();
+let view='inicio', loading=false, openStore=null, catSel='Todos', splitOn=false, timer=null;
+
+/* ---------- cálculos ---------- */
+const items=()=>Object.keys(st.list).filter(id=>PM[id]&&st.list[id]>0);
+const count=()=>items().reduce((a,id)=>a+st.list[id],0);
+function unitPrice(id,si,useSubs=true){const p=PM[id];return(useSubs&&st.subs[id]&&p.eq)?eqPrice(p,si):p.p[si]}
+const isNA=(si,id)=>!!st.na[STORES[si].id+'|'+id];
+function calc(si,useSubs=true){
+ let sub=0;const lines=[],missing=[];
+ items().forEach(id=>{const q=st.list[id],sw=useSubs&&st.subs[id]&&PM[id].eq,u=unitPrice(id,si,useSubs),na=isNA(si,id);
+  lines.push({id,q,u,sw,na,name:sw?PM[id].eq.n:PM[id].n});
+  if(na)missing.push(id);else sub+=u*q;});
+ const tr=transp(STORES[si].km);
+ return{si,sub:r2(sub),tr,total:r2(sub+(st.transport?tr:0)),lines,missing};
+}
+function ranking(useSubs=true){
+ return STORES.map((_,i)=>calc(i,useSubs)).sort((a,b)=>(a.missing.length>0)-(b.missing.length>0)||a.total-b.total||a.si-b.si);
+}
+function potential(){
+ if(!items().length)return{amt:0,diff:0,eqs:0};
+ const base=STORES.map((_,i)=>calc(i,false)).map(c=>({si:c.si,t:c.sub}));
+ const min=base.reduce((a,b)=>b.t<a.t?b:a), max=Math.max(...base.map(b=>b.t));
+ let eqs=0;items().forEach(id=>{const p=PM[id];if(p.eq)eqs+=(p.p[min.si]-eqPrice(p,min.si))*st.list[id]});
+ return{amt:r2(max-min.t+Math.max(eqs,0)),diff:r2(max-min.t),eqs:r2(Math.max(eqs,0))};
+}
+function bestSplit(){
+ let best=null;
+ for(let a=0;a<6;a++)for(let b=a+1;b<6;b++){
+  let sub=0,assign=[],miss=0;
+  items().forEach(id=>{
+   const pa=isNA(a,id)?Infinity:unitPrice(id,a),pb=isNA(b,id)?Infinity:unitPrice(id,b);
+   const w=pa<=pb?a:b,pr=Math.min(pa,pb);
+   if(pr===Infinity){miss++;return}
+   sub+=pr*st.list[id];assign.push({id,si:w,q:st.list[id],u:pr});});
+  const used=new Set(assign.map(x=>x.si));
+  const tr=[...used].reduce((s,si)=>s+transp(STORES[si].km),0);
+  const total=r2(sub+(st.transport?tr:0));
+  if(miss===0&&used.size===2&&(!best||total<best.total))best={a,b,assign,total,sub:r2(sub),tr,used:[...used]};
+ }
+ return best;
+}
+
+/* ---------- utilidades UI ---------- */
+function toast(m){const t=$('#toast');t.textContent=m;t.hidden=false;clearTimeout(toast.t);toast.t=setTimeout(()=>t.hidden=true,2400)}
+function modal(html){$('#modalBox').innerHTML=html;$('#modal').hidden=false}
+function closeModal(){$('#modal').hidden=true}
+const av=s=>`<span class="av" style="background:${s.c}">${s.ini}</span>`;
+const ago=h=>`hace ${h} h`;
+
+function go(v){
+ const prev=view;view=v;
+ if(v==='comparar'&&prev!=='comparar'&&items().length){loading=true;clearTimeout(timer);timer=setTimeout(()=>{loading=false;if(view==='comparar')render()},1000)}
+ else if(v!=='comparar')loading=false;
+ if(location.hash!=='#'+v)history.replaceState(null,'','#'+v);
+ window.scrollTo(0,0);render();
+}
+
+/* ---------- vistas ---------- */
+function render(){
+ $$('.view').forEach(e=>e.classList.toggle('on',e.id==='view-'+view));
+ $$('#tabs button').forEach(b=>b.classList.toggle('on',b.dataset.v===view));
+ $('#listBadge').textContent=count();$('#listBadge').style.display=count()?'':'none';
+ ({inicio:rInicio,lista:rLista,comparar:rComparar,sugerencias:rSug,decision:rDecision,historial:rHistorial})[view]();
+}
+
+let animated=false;
+function rInicio(){
+ const h=new Date().getHours();$('#greet').textContent=(h<12?'Buenos días':h<19?'Buenas tardes':'Buenas noches')+' 👋';
+ const pt=potential();
+ $('#saveTxt').textContent=items().length?`Comparando tu lista de ${items().length} productos entre 6 tiendas y usando equivalentes.`:'Arma tu lista para ver cuánto puedes ahorrar.';
+ const el=$('#saveAmt');
+ if(!animated){animated=true;const t0=performance.now();(function f(t){const k=Math.min(1,(t-t0)/1100),e=1-Math.pow(1-k,3);el.textContent=S(pt.amt*e);if(k<1)requestAnimationFrame(f)})(t0)}
+ else el.textContent=S(pt.amt);
+ $('#promoTrack').innerHTML=PROMOS.map(p=>{const s=STORES[p.s];return`<div class="promo ${p.hot?'hot':''}"><div class="who">${av(s)} ${s.name}</div><div><h4>${p.t}</h4><small>${p.d}</small></div></div>`}).join('');
+ $('#topCompared').innerHTML=['arroz','aceite','leche','huevos','detergente'].map(k=>k==='detergente'?'deterg':k).map(id=>{
+  const p=PM[id],m=Math.min(...p.p),si=p.p.indexOf(m),inl=st.list[id]>0;
+  return`<div class="pc"><span class="emo">${p.e}</span><div class="grow"><b>${p.n}</b><span class="min">Desde ${S(m)} en ${STORES[si].name}</span></div><button class="plus ${inl?'done':''}" data-a="${inl?'rm':'add'}" data-id="${id}" aria-label="${inl?'Quitar':'Agregar'}">${inl?'✓':'+'}</button></div>`}).join('');
+}
+
+function rLista(){
+ $('#chips').innerHTML=CATS.map(c=>`<button class="chip ${c===catSel?'on':''}" data-a="chip" data-c="${c}">${c}</button>`).join('');
+ const cat=P.filter(p=>catSel==='Todos'||p.cat===catSel);
+ $('#catalog').innerHTML=cat.map(p=>{const inl=st.list[p.id]>0;return`<button class="cat-i ${inl?'in':''}" data-a="${inl?'rm':'add'}" data-id="${p.id}"><span style="font-size:22px">${p.e}</span><span><b>${p.n}</b><small>${inl?'En tu lista ✓':'Desde '+S(Math.min(...p.p))}</small></span></button>`}).join('');
+ const ids=items();
+ $('#listItems').innerHTML=ids.length?ids.map(id=>{const p=PM[id],q=st.list[id];return`<div class="item"><span class="emo">${p.e}</span><div class="grow"><b>${p.n}</b><br><small>${p.cat} · desde ${S(Math.min(...p.p))} c/u</small></div><div class="qty"><button data-a="dec" data-id="${id}" aria-label="Menos">−</button><span>${q}</span><button data-a="inc" data-id="${id}" aria-label="Más">+</button></div><div class="price">${S(Math.min(...p.p)*q)}</div><button class="x" data-a="rm" data-id="${id}" aria-label="Eliminar">✕</button></div>`}).join(''):'<div class="empty">Tu lista está vacía. Agrega productos arriba o carga la “Compra semanal”.</div>';
+ const best=ids.reduce((s,id)=>s+Math.min(...PM[id].p)*st.list[id],0);
+ const rk=ids.length?ranking(false)[0]:null;
+ $('#listSummary').innerHTML=`<h3>Resumen</h3><div class="sum-r"><span>Productos distintos</span><b>${ids.length}</b></div><div class="sum-r"><span>Unidades</span><b>${count()}</b></div>
+  <div class="sum-r"><span>Mejor tienda única</span><b>${rk?rk.si>=0?STORES[rk.si].name:'':'—'}</b></div>
+  <div class="sum-r tot"><span>Total parcial*</span><b>${S(best)}</b></div><small class="muted">*Sumando el precio más bajo de cada producto. La comparación real por tienda está en “Comparar”.</small>
+  <div class="stack"><button class="btn primary" data-a="go" data-v="comparar" ${ids.length?'':'disabled'}>Comparar mi canasta</button><button class="btn ghost" data-a="save" ${ids.length?'':'disabled'}>Guardar lista</button></div>`;
+}
+function ddRender(){
+ const q=norm($('#q').value.trim()),dd=$('#dd');
+ if(!q){dd.hidden=true;return}
+ const m=P.filter(p=>norm(p.n).includes(q)||norm(p.cat).includes(q)).slice(0,6);
+ dd.innerHTML=m.length?m.map(p=>`<button data-a="ddadd" data-id="${p.id}"><span style="font-size:20px">${p.e}</span><span>${p.n}</span></button>`).join(''):'<div class="empty" style="padding:14px">Sin resultados</div>';
+ dd.hidden=false;
+}
+
+function rComparar(){
+ $('#transport').checked=st.transport;
+ const ids=items();
+ $('#cmpSub').textContent=ids.length?`${ids.length} productos · ${count()} unidades · 6 tiendas`:'';
+ const box=$('#cmpBody');
+ if(!ids.length){box.innerHTML='<div class="card empty">Tu lista está vacía. <a class="link" href="#lista" data-a="go" data-v="lista">Arma tu lista</a> para comparar.</div>';return}
+ if(loading){box.innerHTML='<div class="sk"></div>'.repeat(4);return}
+ const rk=ranking(),max=Math.max(...rk.map(r=>r.total));
+ box.innerHTML=rk.map((r,i)=>{const s=STORES[r.si],best=i===0&&!r.missing.length,diff=r2(max-r.total);
+  const det=openStore===s.id?`<div class="detail"><table><tr><th>Producto</th><th>Cant.</th><th>P. unit.</th><th>Subtotal</th><th>No disp.</th></tr>${r.lines.map(l=>`<tr class="${l.na?'off':''}"><td>${PM[l.id].e} ${l.name}${l.sw?' <span class="tag o">equiv.</span>':''}</td><td>${l.q}</td><td>${S(l.u)}</td><td>${S(l.u*l.q)}</td><td><input type="checkbox" data-a="na" data-s="${s.id}" data-id="${l.id}" ${l.na?'checked':''} aria-label="No disponible"></td></tr>`).join('')}</table><p class="muted">Marca “No disp.” si la tienda no tiene el producto: se descuenta del total y la tienda baja en el ranking.</p></div>`:'';
+  return`<div class="store ${best?'best':''}"><div class="s-top"><div class="rank">${i+1}</div><div><div class="s-name">${av(s)} ${s.name} ${s.fake?'<span class="tag n">ejemplo</span>':''} ${best?'<span class="tag g">Más barato</span>':''} ${r.missing.length?`<span class="tag r">${r.missing.length} no disponible${r.missing.length>1?'s':''}</span>`:''}</div>
+  <div class="s-meta"><span>📍 ${s.km.toFixed(1)} km</span><span>🚗 Traslado ${S(r.tr)}${st.transport?' (incluido)':''}</span><span>🕒 Precios actualizados ${ago(s.h)}</span></div></div>
+  <div class="s-right"><div class="s-total">${S(r.total)}</div>${diff>0?`<span class="tag o">Ahorras ${S(diff)}</span>`:'<span class="tag n">La más cara</span>'}</div></div>
+  <div class="s-act"><button class="btn ghost sm" data-a="detail" data-s="${s.id}">${openStore===s.id?'Ocultar detalle':'Ver detalle por producto'}</button><button class="btn primary sm" data-a="choose" data-s="${s.id}">Elegir esta tienda</button></div>${det}</div>`}).join('')+
+  `<p class="muted">Las promociones (p. ej. 2×1, S/ 10 de dscto.) son referenciales y no están incluidas en los totales.</p><div class="row" style="margin-top:12px"><button class="btn ghost" data-a="go" data-v="sugerencias">Ver sugerencias de ahorro →</button></div>`;
+}
+
+function rSug(){
+ const rk=ranking();const ref=rk[0]?rk[0].si:0;
+ const ids=items().filter(id=>PM[id].eq);
+ let saved=0;
+ $('#sugList').innerHTML=ids.length?ids.map(id=>{const p=PM[id],q=st.list[id],o=p.p[ref],n=eqPrice(p,ref),sw=!!st.subs[id],sv=r2((o-n)*q);if(sw)saved+=sv;
+  return`<div class="sug"><div><small class="muted">Original</small><br><b>${p.e} ${p.n}</b><br>${S(o)} × ${q}</div><span class="arrow">→</span><div class="new"><small class="muted">Equivalente</small><br><b>${p.eq.n}</b><br>${S(n)} × ${q} · <span class="save">Ahorras ${S(sv)}</span></div><button class="btn ${sw?'ghost':'primary'} sm" data-a="swap" data-id="${id}">${sw?'Revertir':'Cambiar'}</button></div>`}).join(''):'<div class="card empty">No hay equivalentes para los productos de tu lista.</div>';
+ const pot=ids.reduce((s,id)=>s+(PM[id].p[ref]-eqPrice(PM[id],ref))*st.list[id],0);
+ $('#sugSummary').innerHTML=`<h3>Tu canasta ahora</h3><div class="sum-r"><span>Tienda más barata</span><b>${rk[0]?STORES[ref].name:'—'}</b></div><div class="sum-r"><span>Total actual</span><b>${rk[0]?S(rk[0].total):'—'}</b></div><div class="sum-r"><span>Ahorro por cambios</span><b class="save">${S(saved)}</b></div><div class="sum-r"><span>Ahorro posible (todos)</span><b>${S(pot)}</b></div>
+ <div class="stack"><button class="btn primary" data-a="go" data-v="decision">Continuar a la decisión</button></div>`;
+}
+
+function rDecision(){
+ const box=$('#decBody');
+ if(!items().length){box.innerHTML='<div class="card empty">Primero arma tu lista y compárala.</div>';return}
+ const rk=ranking(),max=Math.max(...rk.map(r=>r.total));
+ const sid=st.chosen&&STORES.find(s=>s.id===st.chosen)?st.chosen:STORES[rk[0].si].id;
+ const si=STORES.findIndex(s=>s.id===sid),c=calc(si),s=STORES[si];
+ const mins=Math.round(s.km*4+3);
+ const order=['Abarrotes','Lácteos','Carnes','Limpieza'];
+ const sp=splitOn?bestSplit():null;
+ let splitHtml='';
+ if(splitOn){
+  if(!sp)splitHtml='<div class="split">No hay combinación de 2 tiendas disponible con tus marcas de “no disponible”.</div>';
+  else{const better=sp.total<rk[0].total;
+   splitHtml=`<div class="split"><b>Combinación más barata: ${STORES[sp.used[0]].name} + ${STORES[sp.used[1]].name}</b><div class="sum-r"><span>Total dividido${st.transport?' (con traslados)':''}</span><b>${S(sp.total)}</b></div>
+   <p style="margin:6px 0">${better?`<span class="tag g">Ahorras ${S(r2(rk[0].total-sp.total))} vs. la mejor tienda única</span>`:'<span class="tag n">No mejora a la mejor tienda única; conviene ir a una sola.</span>'}</p>
+   ${sp.used.map(u=>`<p style="margin:8px 0 2px"><b>${STORES[u].name}</b> (${S(sp.assign.filter(a=>a.si===u).reduce((t,a)=>t+a.u*a.q,0))})</p><small class="muted">${sp.assign.filter(a=>a.si===u).map(a=>PM[a.id].e+' '+(st.subs[a.id]&&PM[a.id].eq?PM[a.id].eq.n:PM[a.id].n)).join(' · ')}</small>`).join('')}</div>`;}
+ }
+ box.innerHTML=`<div class="pills">${rk.map(r=>`<button class="chip ${STORES[r.si].id===sid?'on':''}" data-a="choose2" data-s="${STORES[r.si].id}">${STORES[r.si].name} · ${S(r.total)}</button>`).join('')}</div>
+ <div class="dec"><div class="card"><h3>Resumen de compra en ${s.name}</h3>
+  ${c.lines.map(l=>`<div class="sum-r ${l.na?'off':''}"><span>${PM[l.id].e} ${l.name} × ${l.q}${l.na?' (no disponible)':''}</span><b>${l.na?'—':S(l.u*l.q)}</b></div>`).join('')}
+  <div class="sum-r"><span>Subtotal</span><b>${S(c.sub)}</b></div><div class="sum-r"><span>Traslado (${s.km.toFixed(1)} km)</span><b>${S(c.tr)}</b></div>
+  <div class="sum-r tot"><span>Total con traslado</span><b>${S(c.sub+c.tr)}</b></div>
+  <p><span class="tag o">Ahorras ${S(r2(Math.max(0,max-c.total)))} vs. la tienda más cara</span></p>
+  <div class="stack"><button class="btn primary" data-a="partner">Ir a la tienda aliada</button><button class="btn ghost" data-a="split">${splitOn?'Ocultar división':'Dividir en 2 tiendas'}</button><button class="btn ghost" data-a="save">Guardar lista</button></div>${splitHtml}</div>
+  <div class="card"><h3>Ruta sugerida (simulada)</h3><ul class="route">
+   <li><b>Sal de tu casa en La Molina</b><small>Punto de partida</small></li>
+   <li><b>Dirígete a ${s.name}</b><small>${s.km.toFixed(1)} km · ≈ ${mins} min en auto</small></li>
+   <li><b>Recorre los pasillos en este orden</b><small>${order.filter(o=>c.lines.some(l=>PM[l.id].cat===o)).join(' → ')}</small></li>
+   <li><b>Paga y revisa tu ahorro</b><small>Total estimado ${S(c.sub)}</small></li></ul></div></div>`;
+}
+
+function rHistorial(){
+ const W=640,H=270,pl=36,pb=30,bw=44,gap=(W-pl-8*bw)/8,mx=50;
+ let g='';for(let t=0;t<=50;t+=10){const y=H-pb-(H-pb-20)*t/mx;g+=`<line x1="${pl}" x2="${W}" y1="${y}" y2="${y}" stroke="#E4EAE7"/><text x="${pl-8}" y="${y+4}" text-anchor="end">${t}</text>`}
+ WEEKS.forEach((v,i)=>{const h=(H-pb-20)*v/mx,x=pl+gap/2+i*(bw+gap),y=H-pb-h;
+  g+=`<g><title>Semana ${i+1}: ${S(v)}</title><rect class="b ${i===7?'last':''}" x="${x}" y="${y}" width="${bw}" height="${h}" rx="8"/><text class="v" x="${x+bw/2}" y="${y-6}" text-anchor="middle">${v}</text><text x="${x+bw/2}" y="${H-8}" text-anchor="middle">Sem ${i+1}</text></g>`});
+ $('#chart').innerHTML=`<svg class="bars" viewBox="0 0 ${W} ${H}" role="img" aria-label="Ahorro semanal en soles, últimas 8 semanas" style="width:100%;height:auto">${g}</svg>`;
+ $('#weekTotal').textContent='Total 8 semanas: '+S(WEEKS.reduce((a,b)=>a+b,0));
+ $('#saved').innerHTML=st.saved.length?st.saved.map((l,i)=>`<div class="saved"><div><b>${l.name}</b><small>${l.date} · ${l.n} productos · ${l.store}</small></div><div class="row"><b>${S(l.total)}</b>${l.items?`<button class="btn ghost sm" data-a="loadlist" data-i="${i}">Cargar</button>`:''}<button class="x" data-a="dellist" data-i="${i}" aria-label="Borrar">✕</button></div></div>`).join(''):'<div class="empty">Aún no guardaste listas.</div>';
+ $('#alerts').innerHTML=ALERTS.map(a=>`<div class="al"><span class="ti o">${a.i}</span><div><b>${a.t}</b><small class="muted" style="display:block">${a.d}</small></div></div>`).join('');
+}
+
+/* ---------- acciones ---------- */
+function saveList(){
+ if(!items().length)return;
+ const rk=ranking(),s=STORES[rk[0].si],d=new Date();
+ st.saved.unshift({id:st.nid++,name:'Lista '+d.toLocaleDateString('es-PE',{day:'numeric',month:'short'}),date:d.toLocaleDateString('es-PE'),store:s.name,total:rk[0].total,n:items().length,items:{...st.list},subs:{...st.subs}});
+ save();toast('Lista guardada en tu historial');
+}
+function surveyModal(){
+ const ans={u:0,p:0};
+ const row=(k,q,a,b)=>`<div class="q-l">${q}</div><div class="scale" data-k="${k}">${[1,2,3,4,5].map(n=>`<button data-a="rate" data-k="${k}" data-n="${n}">${n}</button>`).join('')}</div><div class="ends"><span>${a}</span><span>${b}</span></div>`;
+ modal(`<h3>Mini encuesta</h3><p class="muted" style="margin-bottom:18px">Tu opinión sobre este prototipo (escala 1 a 5).</p>${row('u','1. ¿Qué tan útil te resulta Canasta 360° para decidir dónde comprar?','Nada útil','Muy útil')}${row('p','2. ¿Qué tan probable es que la uses en tus compras del hogar?','Nada probable','Muy probable')}<div class="row" style="justify-content:flex-end"><button class="btn ghost" data-a="close">Ahora no</button><button class="btn primary" id="sendSurvey" data-a="sendsurvey" disabled>Enviar</button></div>`);
+ surveyModal.ans=ans;
+}
+function stepper(id,d){const q=(st.list[id]||0)+d;if(q<=0)delete st.list[id];else st.list[id]=Math.min(q,99);save();render()}
+
+document.addEventListener('click',e=>{
+ if(!e.target.closest('.search'))$('#dd').hidden=true;
+ if(e.target.id==='modal'){closeModal();return}
+ const t=e.target.closest('[data-a]');if(!t||t.type==='checkbox')return;
+ const a=t.dataset.a,id=t.dataset.id;
+ switch(a){
+  case'go':e.preventDefault();go(t.dataset.v);break;
+  case'newlist':st.list={};st.subs={};st.na={};save();go('lista');break;
+  case'promos':$('#promosAnchor').scrollIntoView({behavior:'smooth'});break;
+  case'scroll':$('#promoTrack').scrollBy({left:340*t.dataset.dir,behavior:'smooth'});break;
+  case'add':if(!st.list[id])st.list[id]=1;save();render();break;
+  case'ddadd':if(!st.list[id])st.list[id]=1;save();$('#q').value='';$('#dd').hidden=true;render();toast('Agregado: '+PM[id].n);break;
+  case'rm':delete st.list[id];delete st.subs[id];save();render();break;
+  case'inc':stepper(id,1);break;
+  case'dec':stepper(id,-1);break;
+  case'chip':catSel=t.dataset.c;render();break;
+  case'loadweekly':st.list=Object.fromEntries(WEEKLY.map(i=>[i,1]));save();render();toast('Compra semanal cargada (12 productos)');break;
+  case'clear':st.list={};st.subs={};save();render();break;
+  case'save':saveList();if(view==='lista'||view==='decision')render();break;
+  case'detail':openStore=openStore===t.dataset.s?null:t.dataset.s;render();break;
+  case'choose':st.chosen=t.dataset.s;save();splitOn=false;go('decision');break;
+  case'choose2':st.chosen=t.dataset.s;save();render();break;
+  case'swap':st.subs[id]?delete st.subs[id]:st.subs[id]=1;save();render();break;
+  case'swapall':items().forEach(i=>{if(PM[i].eq)st.subs[i]=1});save();render();toast('Equivalentes aplicados');break;
+  case'revertall':st.subs={};save();render();break;
+  case'split':splitOn=!splitOn;render();break;
+  case'partner':{const s=STORES.find(x=>x.id===(st.chosen||STORES[ranking()[0].si].id));
+   modal(`<h3>Ir a la tienda aliada</h3><p>Te llevaríamos a <b>${s.name}</b> con tu lista de ${items().length} productos ya cargada en el carrito.</p><p class="muted">Esto es una simulación: en esta versión no se abre ningún sitio externo ni se realiza una compra.</p><div class="row" style="justify-content:flex-end;margin-top:18px"><button class="btn ghost" data-a="close">Cancelar</button><button class="btn primary" data-a="confirmpartner">Continuar (simulado)</button></div>`);break}
+  case'confirmpartner':closeModal();saveList();toast('Redirección simulada ✓ Lista guardada');if(!st.survey)setTimeout(surveyModal,900);break;
+  case'close':closeModal();break;
+  case'loadlist':{const l=st.saved[t.dataset.i];st.list={...l.items};st.subs={...(l.subs||{})};save();go('lista');break}
+  case'dellist':st.saved.splice(t.dataset.i,1);save();render();break;
+  case'survey':surveyModal();break;
+  case'rate':{surveyModal.ans[t.dataset.k]=+t.dataset.n;$$('.scale[data-k="'+t.dataset.k+'"] button').forEach(b=>b.classList.toggle('on',+b.dataset.n===+t.dataset.n));$('#sendSurvey').disabled=!(surveyModal.ans.u&&surveyModal.ans.p);break}
+  case'sendsurvey':st.survey={...surveyModal.ans};save();closeModal();toast('¡Gracias por tu opinión!');break;
+ }
+});
+document.addEventListener('change',e=>{
+ const t=e.target;
+ if(t.id==='transport'){st.transport=t.checked;save();render()}
+ else if(t.dataset.a==='na'){const k=t.dataset.s+'|'+t.dataset.id;t.checked?st.na[k]=1:delete st.na[k];save();render()}
+});
+$('#q').addEventListener('input',ddRender);
+$('#q').addEventListener('focus',ddRender);
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeModal();$('#dd').hidden=true}});
+window.addEventListener('hashchange',()=>{const v=location.hash.slice(1);if(['inicio','lista','comparar','sugerencias','decision','historial'].includes(v)&&v!==view)go(v)});
+const h0=location.hash.slice(1);
+view=['lista','comparar','sugerencias','decision','historial'].includes(h0)?h0:'inicio';
+if(view==='comparar'&&items().length){loading=true;timer=setTimeout(()=>{loading=false;render()},1000)}
+render();
+window.__c360={st:()=>st,ranking,potential,bestSplit};
+})();
+
+</script>
+</body>
+</html>
